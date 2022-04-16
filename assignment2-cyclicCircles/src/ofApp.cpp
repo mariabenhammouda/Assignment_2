@@ -7,8 +7,8 @@ void ofApp::setup(){
   ofSetFrameRate(60);
   ofSetBackgroundAuto(false);
   ofSetCircleResolution(60);
-    planet.load("planet.png"); //load the image into xcode
-    planet.getTexture().setTextureWrap(GL_REPEAT,GL_REPEAT);
+  //  planet.load("planet.png"); //load the image into xcode
+   // planet.getTexture().setTextureWrap(GL_REPEAT,GL_REPEAT);
   
   gui.setup();
   gui.add(circles_num.set("number of circles", 1, 1,10));
@@ -23,6 +23,9 @@ void ofApp::setup(){
                   ofVec3f(720, 720, 720)));
   gui.add(speed.set("speed", 0.01, 0.01, 0.1));
   gui.add(after_img.set("after image", 0, 0, 255));
+    gui.add(bluePlanet.set("Neptune",true));
+    gui.add(redPlanet.set("Mars",false));
+    gui.add(yellowPlanet.set("Venus",false));
   
   imgcount = 0;
   guidraw = true;
@@ -30,7 +33,18 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-  
+    if(bluePlanet){
+        planet.load("neptune.jpeg"); //load the image into xcode
+        planet.getTexture().setTextureWrap(GL_REPEAT,GL_REPEAT);
+    }
+    else if(redPlanet){
+        planet.load("mars.jpeg"); //load the image into xcode
+          planet.getTexture().setTextureWrap(GL_REPEAT,GL_REPEAT);
+    }
+    else if(yellowPlanet){
+        planet.load("venus.jpeg"); //load the image into xcode
+          planet.getTexture().setTextureWrap(GL_REPEAT,GL_REPEAT);
+    }
   while (circle.size() != circles_num){
     if (circle.size() < circles_num) {
       circles s;

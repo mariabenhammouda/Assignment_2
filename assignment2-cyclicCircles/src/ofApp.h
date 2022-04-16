@@ -31,13 +31,15 @@ class ofApp : public ofBaseApp{
   ofParameter<float> radius;
   
   ofParameter<int> circles_num;
-  int old_num;
+//  int old_num;
   
   ofParameter<ofVec3f> pos;
   ofParameter<ofVec3f> rot;
   ofParameter<float> speed;
   ofParameter<int> after_img;
- 
+    ofParameter<bool> bluePlanet;
+    ofParameter<bool> redPlanet;
+    ofParameter<bool> yellowPlanet;
   //ofxToggle color_mode;
   
   vector<circles> circle;
