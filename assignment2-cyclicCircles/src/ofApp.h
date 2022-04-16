@@ -38,7 +38,7 @@ class ofApp : public ofBaseApp{
   ofParameter<float> speed;
   ofParameter<int> after_img;
     ofParameter<bool> bluePlanet;
-    ofParameter<bool> redPlanet;
+    ofParameter<bool> greyPlanet;
     ofParameter<bool> yellowPlanet;
   //ofxToggle color_mode;
   
