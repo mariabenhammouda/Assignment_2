@@ -48,6 +48,7 @@ class ofApp : public ofBaseApp{
   bool guidraw;
   ofImage img;
     ofImage planet;
+   
     ofEasyCam cam;
     
   int imgcount;

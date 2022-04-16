@@ -84,7 +84,7 @@ void ofApp::draw(){
     ofSetColor(255);
     planet.getTexture().bind();
     sphere.setRadius(ofGetWidth()/10);
-   // sphere.rotate(1,0,0.5,0);
+ 
     sphere.draw();// assign the texture then draw spheres
 
     planet.getTexture().unbind();

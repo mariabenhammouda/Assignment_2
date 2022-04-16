@@ -52,7 +52,7 @@ void circles::draw() {
   ofRotateZ(rotate.z);
 
     ofSetLineWidth(2);
-  ofDrawCircle(0, 0, 0, radius);
+    ofDrawCircle(0, 0, 0, radius);
   
   ofPopMatrix();
 }
