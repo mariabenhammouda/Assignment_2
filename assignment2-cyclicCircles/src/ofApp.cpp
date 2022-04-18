@@ -2,8 +2,11 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
-  ofBackground(0);
+    //sound.load();
+    sound.play();
+    sound.setLoop(true);
+    recenttime=ofGetSystemTimeMillis();
+   // ofBackground(0);
   ofSetFrameRate(40);
   ofSetBackgroundAuto(false);
   ofSetCircleResolution(60);
@@ -12,27 +15,54 @@ void ofApp::setup(){
   
   gui.setup();
   gui.add(circles_num.set("number of circles", 1, 1,10));
+    gui.add(volume.set("volume", 0.5, 0.0,1.0));
+    gui.add(decay.set("Decay", 0.5, 0.0,1.0));
   gui.add(radius.set("radius", ofGetHeight()/4, 1, ofGetHeight()/2));
   gui.add(pos.set("pos",
                   ofVec3f(0),
                   ofVec3f(0),
                   ofVec3f(ofGetWidth()/2, ofGetHeight()/2, 1000)));
   gui.add(rot.set("rot",
-                  ofVec3f(0),
+                  ofVec3f(0,0,0),
                   ofVec3f(0),
                   ofVec3f(720, 720, 720)));
-  gui.add(speed.set("speed", 0.01, 0.01, 0.1));
+  gui.add(speed.set("speed", 0, 0.01, 0.1));
   gui.add(after_img.set("after image", 0, 0, 255));
     gui.add(bluePlanet.set("Neptune",true));
     gui.add(greyPlanet.set("Mercury",false));
     gui.add(yellowPlanet.set("Venus",false));
-  
+    recenttime=ofGetSystemTimeMillis();
   imgcount = 0;
   guidraw = true;
+    fft= new float[128];
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    float time = ofGetElapsedTimef()/10; //Get time in seconds
+    float value = sin( time * M_TWO_PI );
+    //Map value from [-1,1] to [0,255]
+    float r = ofMap( value, -1, 1, 0, 50 );
+    float g = ofMap( value, -1, 1, 0, 90 );
+    float b = ofMap( value, -1, 1, 0, 200 );
+    ofBackground( r, g, b );
+  //  ofBackground(col);
+   /* if(ofGetSystemTimeMillis()-recenttime >10){
+        if( counter< 200){
+            counter+=1;
+            
+        }else
+            counter =0;
+    
+        col.set(counter%50,counter%255,counter%255);
+       
+        recenttime=ofGetSystemTimeMillis();
+        
+    }*/
+    
+    
   while (circle.size() != circles_num){
     if (circle.size() < circles_num) {
       circles s;
@@ -50,8 +80,12 @@ void ofApp::update(){
       circle[i].setPosAmp(pos);
       circle[i].setRotAmp(rot);
       circle[i].setSpeedAmp(speed);
+      int T=ofGetElapsedTimef();
+      int seed1=ofRandom(ofGetWidth(),ofGetHeight());
+      int seed2=ofRandom(ofGetWidth(),ofGetHeight());
+      int seed3=ofRandom(ofGetWidth(),ofGetHeight());
       
-      ofSetColor(ofRandom(255), ofRandom(255), ofRandom(255));
+      ofSetColor(ofNoise((T/10)*2-1) * seed1, ofNoise((T/10)*2-1 ) * seed2, ofNoise((T/10)*2-1 ) * seed3);
       
   }
     if(greyPlanet){
@@ -167,4 +201,7 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){
 
+}
+void ofApp::audioReceived( float *input, int bufferSize, int nChannels ){
+ //... use input array here
 }

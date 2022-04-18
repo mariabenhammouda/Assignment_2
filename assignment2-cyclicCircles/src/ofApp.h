@@ -25,10 +25,12 @@ class ofApp : public ofBaseApp{
         void windowResized(int w, int h);
         void dragEvent(ofDragInfo dragInfo);
         void gotMessage(ofMessage msg);
-  
+    void audioReceived( float *input, int bufferSize, int nChannels );
   ofxPanel gui;
   
   ofParameter<float> radius;
+    ofParameter<float> volume;
+    ofParameter<float> decay;
   
   ofParameter<int> circles_num;
 //  int old_num;
@@ -48,6 +50,12 @@ class ofApp : public ofBaseApp{
   bool guidraw;
   ofImage img;
     ofImage planet;
+    float timecolor;
+
+    float recenttime;
+    ofSoundPlayer sound;
+    float *fft;
+    int band;
    
     ofEasyCam cam;
     

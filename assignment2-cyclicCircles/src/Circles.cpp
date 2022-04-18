@@ -53,6 +53,7 @@ void circles::draw() {
 
     ofSetLineWidth(2);
     ofDrawCircle(0, 0, 0, radius);
+    
   
   ofPopMatrix();
 }
