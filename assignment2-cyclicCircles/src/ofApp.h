@@ -54,7 +54,7 @@ class ofApp : public ofBaseApp{
 
     float recenttime;
     ofSoundPlayer sound;
-    float *fft;
+    float *fft, *soundSpectrum;
     int band;
    
     ofEasyCam cam;

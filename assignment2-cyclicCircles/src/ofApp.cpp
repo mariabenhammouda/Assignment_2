@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    //sound.load();
+    sound.load("Sound.mp3");
     sound.play();
     sound.setLoop(true);
     recenttime=ofGetSystemTimeMillis();
@@ -35,12 +35,20 @@ void ofApp::setup(){
   imgcount = 0;
   guidraw = true;
     fft= new float[128];
-    
+    band=64;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    
+    ofSoundUpdate();
+    sound.setVolume(volume);
+    soundSpectrum= ofSoundGetSpectrum(band);
+    for(int i=0; i<band; i++){
+        fft[i]*=decay;
+        if(fft[i]<soundSpectrum[i]){
+            fft[i]=soundSpectrum[i];
+        }
+    }
     float time = ofGetElapsedTimef()/10; //Get time in seconds
     float value = sin( time * M_TWO_PI );
     //Map value from [-1,1] to [0,255]
@@ -109,8 +117,16 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
  
-    ofPushMatrix();
   
+    
+    ofPushMatrix();
+    for(int i=0; i<band;i++){
+        ofSetColor(255);
+        ofDrawCircle(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), fft[i]*100);
+        //int x=ofRandom(ofGetWidth()/1000);
+       // int y=ofRandom(ofGetHeight()/1000);
+      //  ofDrawTriangle(x, y, x*y, x*fft[i], y*fft[i], x*y*fft[i]);
+    }
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
     ofSpherePrimitive sphere;
     sphere.mapTexCoordsFromTexture(planet.getTexture());
